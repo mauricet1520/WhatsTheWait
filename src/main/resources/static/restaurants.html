@@ -1,0 +1,25 @@
+<div class="">
+<h2>Restaurants</h2>
+<div class="restaurant-list">
+
+    <h4>{{returnedGuest.firstName}}
+    </h4>
+    <!--<ul class="list-group">-->
+
+        <!--<li ng-repeat ="restaurantItem in restaurantList">-->
+            <!--{{restaurantItem.name}}  is a {{restaurantItem.type}} restaurant located at {{restaurantItem.address}}-->
+
+        <!--</li>-->
+    <!--</ul>-->
+
+
+    <ul class="list-group">
+        <li ng-click="getWaitList(restaurantItem.name)"
+            class="list-group-item"
+            ng-repeat="restaurantItem in restaurantList">
+            {{restaurantItem.name}}  -&nbsp; {{restaurantItem.type}} -&nbsp; {{restaurantItem.address}}
+            <span class="badge">{{restaurantItem.waitingList.waitTime}} minute wait</span>
+        </li>
+    </ul>
+</div>
+</div>

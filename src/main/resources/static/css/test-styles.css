@@ -1,0 +1,27 @@
+body {
+    margin: 1em;
+    padding: 1em;
+}
+
+.restaurant-list {
+    float: left;
+    width: 60%;
+}
+
+.waitlist-list {
+    float: left;
+    width: 48%;
+}
+
+.reservation-list {
+    float: right;
+    width: 48%;
+}
+
+.middle-column {
+    float: left;
+}
+
+.add-border {
+    border: 1px solid black;
+}

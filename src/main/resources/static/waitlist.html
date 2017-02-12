@@ -1,0 +1,14 @@
+
+<h4>{{currentRestaurant}} is on a {{waitlist.waitTime}} minute wait.</h4>
+<div class="waitlist-list">
+
+<ul class="list-group">
+    <li
+        class="list-group-item"
+        ng-repeat="waititem in waitlist.listOfUsers">
+        {{waititem.firstName}} {{waititem.lastName}}
+        <span class="badge">Party of &nbsp;{{waititem.partyof}}</span>
+    </li>
+</ul>
+
+</div>
