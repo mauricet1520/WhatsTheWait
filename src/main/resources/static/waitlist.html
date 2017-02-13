@@ -3,19 +3,17 @@
 <div class="waitlist-list">
 
 <ul class="list-group">
-    <li
+    <button type="button"
         class="list-group-item"
         ng-repeat="waititem in waitlist.listOfUsers">
         {{waititem.firstName}} {{waititem.lastName}}
         <span class="badge">Party of &nbsp;{{waititem.partyof}}</span>
 
 
-    </li>
+    </button>
 </ul>
 
     <div> <button type="button" ng-click="addGuest()">Add</button>
     </div>
-
-
 
 </div>

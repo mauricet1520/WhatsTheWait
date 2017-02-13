@@ -78,26 +78,12 @@ public class WhatsTheWaitApplicationTest {
 
     @Test
     public void testRegisterRestaurant() {
-
-        Iterable<Restaurant> allRestaurant = restaurantRepository.findAll();
-        int size = 0;
-        for (Restaurant restaurantLoop : allRestaurant) {
-            size++;
-        }
-
+        long size = restaurantRepository.count();
         Restaurant restaurant = new Restaurant("Red Lobster", "Seafood", "Buford Ga", "redLob", "redlobster@gmail.com");
         restaurantRepository.save(restaurant);
-
         assertNotNull(restaurant.getId());
-
-        Iterable<Restaurant> allTheRestaurant = restaurantRepository.findAll();
-        int newSize = 0;
-        for (Restaurant restaurant1 : allTheRestaurant) {
-            newSize++;
-        }
-
+        long newSize = guestRepository.count();
         assertEquals(size + 1, newSize);
-
         restaurantRepository.delete(restaurant);
 
     }
@@ -111,7 +97,6 @@ public class WhatsTheWaitApplicationTest {
         restaurantRepository.save(testedRestaurant);
         restaurant = restaurantRepository.findOne(restaurant.getId());
         assertEquals(testedRestaurant.getId(), testedRestaurant.getId());
-
         restaurantRepository.delete(restaurant);
 
     }
@@ -119,7 +104,6 @@ public class WhatsTheWaitApplicationTest {
     @Test
     public void testWaitList() {
         Restaurant restaurant = new Restaurant("Red Lobster", "Seafood", "Buford Ga", "redLob", "redlobster@gmail.com");
-
         Guest firstUser = new Guest("Maurice", "Thomas", "mauricet1520@gmail.com", "1520", 20);
         Guest secondUser = new Guest("Carl", "Evans", "carlevans@gmail.com", "4040", 2);
         Guest thirdUser = new Guest("Mike", "Smith", "mikesmith@gmail.com", "2020", 6);
@@ -131,10 +115,8 @@ public class WhatsTheWaitApplicationTest {
         WaitingList waitingList = new WaitingList(restaurant, users, 20);
 
         Iterable<WaitingList> allList = waitingListRepository.findAll();
-        int size = 0;
-        for (WaitingList list : allList) {
-            size++;
-        }
+
+        long size = waitingListRepository.count();
         assertEquals(0, size);
 
         firstUser.setWaitlist(waitingList);
@@ -143,11 +125,7 @@ public class WhatsTheWaitApplicationTest {
 
         waitingListRepository.save(waitingList);
 
-        Iterable<WaitingList> allTheList = waitingListRepository.findAll();
-        int newSize = 0;
-        for (WaitingList list : allTheList) {
-            newSize++;
-        }
+        long newSize = waitingListRepository.count();
 
         assertEquals(size + 1, newSize);
         Guest testedUser = guestRepository.findByEmail(firstUser.getEmail());
@@ -164,13 +142,8 @@ public class WhatsTheWaitApplicationTest {
         Restaurant firstRestaurant = new Restaurant("Red Lobster", "Seafood", "Buford Ga", "redLob", "redlobster@gmail.com");
         Restaurant secondRestaurant = new Restaurant("Pappadeaux", "Seafood", "Norcross Ga", "deaux", "pappadeaux@gmail.com");
         Restaurant thirdRestaurant = new Restaurant("Bonefish", "American", "Buford Ga", "bonefish", "bonefish@gmail.com");
+        long size = reservationRepository.count();
 
-
-        Iterable<ReservationList> allList = reservationRepository.findAll();
-        int size = 0;
-        for (ReservationList list : allList) {
-            size++;
-        }
         assertEquals(0, size);
 
         ReservationList reservationListOne = new ReservationList("Tom", "Hanks", 40,

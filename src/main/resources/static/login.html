@@ -9,17 +9,22 @@
 <body>
 
 
-<div><h3>Sign In</h3></div>
+<div><h4>Sign In</h4></div>
 
 <div>
 
+</div>
+<div>
+
+<form action="/login" method="post">
         <span>Email: <input type="text" ng-model="currentGuest.email"/></span>
         <span>Password: <input type="text" ng-model="currentGuest.password"/></span>
         <span>Party Size: <input type="text" ng-model="currentGuest.partyof"/></span>
         <span>  <input type="button" ng-click="login()" value="Sign in"/></span>
 
-</div>
 
+</form>
+</div>
 
 
 

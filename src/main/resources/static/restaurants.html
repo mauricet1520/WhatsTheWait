@@ -14,12 +14,12 @@
 
 
     <ul class="list-group">
-        <li ng-click="getWaitList(restaurantItem.name)"
+        <button type="button" ng-click="getWaitList(restaurantItem.name)"
             class="list-group-item"
             ng-repeat="restaurantItem in restaurantList">
             {{restaurantItem.name}}  -&nbsp; {{restaurantItem.type}} -&nbsp; {{restaurantItem.address}}
             <span class="badge">{{restaurantItem.waitingList.waitTime}} minute wait</span>
-        </li>
+        </button>
     </ul>
 </div>
 </div>

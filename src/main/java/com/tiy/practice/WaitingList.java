@@ -80,4 +80,5 @@ public class WaitingList {
         this.waitTime = waitTime;
     }
 
+
 }
