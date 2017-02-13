@@ -47,66 +47,33 @@ public class WhatsTheWaitApplicationTest {
 
     @Test
     public void testRegisterUser() {
-        Iterable<Guest> allUsers = guestRepository.findAll();
-        int size = 0;
-        for (Guest guest : allUsers) {
-            size++;
-        }
+        long size = guestRepository.count();
 
-        Guest guest = new Guest("Maurice", "Thomas", "mauricet1520@gmail.com", "1520", 0);
+        Guest guest = new Guest("Test", "User", "test-user@gmail.com", "testpassword", 0);
         guestRepository.save(guest);
         assertNotNull(guest.getId());
 
-        Iterable<Guest> allTheUsers = guestRepository.findAll();
-        int newSize = 0;
-        for (Guest guest1 : allTheUsers) {
-            newSize++;
-        }
-
+        long newSize = guestRepository.count();
         assertEquals(size + 1, newSize);
         guestRepository.delete(guest);
 
+        newSize = guestRepository.count();
+        assertEquals(size, newSize);
     }
 
     @Test
     public void testUserLogin() {
+        Guest testGuest = new Guest("Maurice", "Thomas", "mauricet1520@gmail.com", "1520");
+        testGuest.setPartyof(10);
+        guestRepository.save(testGuest);
 
-        Iterable<Guest> allUsers = guestRepository.findAll();
-        int size = 0;
-        for (Guest guest : allUsers) {
-            size++;
-        }
-        Guest guest = new Guest("Maurice", "Thomas", "mauricet1520@gmail.com", "1520");
-        guestRepository.save(guest);
-        Guest testedGuest = guestRepository.findByEmailAndPassword(guest.getEmail(), guest.getPassword());
-        testedGuest.setPartyof(10);
-//        guest = testedGuest;
-        guestRepository.save(testedGuest);
+        Guest retrievedGuest = guestRepository.findByEmailAndPassword(testGuest.getEmail(), testGuest.getPassword());
+        assertNotNull(retrievedGuest);
+        assertEquals(retrievedGuest.getId(), testGuest.getId());
+        assertEquals(retrievedGuest.getEmail(), testGuest.getEmail());
+        assertEquals(retrievedGuest.getPartyof(), testGuest.getPartyof());
 
-        guest = guestRepository.findOne(guest.getId());
-        assertEquals(testedGuest.getId(), guest.getId());
-        assertEquals(testedGuest.getFirstName(), guest.getFirstName());
-
-        assertEquals(testedGuest.getPartyof(), guest.getPartyof());
-
-        Iterable<Guest> allTheUsers = guestRepository.findAll();
-        int newSize = 0;
-        for (Guest guest1 : allTheUsers) {
-            newSize++;
-        }
-
-        assertEquals(size + 1, newSize);
-
-        guestRepository.delete(guest);
-
-        Iterable<Guest> emptyUsers = guestRepository.findAll();
-        int finalSize = 0;
-        for (Guest guest1 : allUsers) {
-            finalSize++;
-        }
-
-        assertEquals(0, finalSize);
-
+        guestRepository.delete(testGuest);
     }
 
     @Test
@@ -173,7 +140,7 @@ public class WhatsTheWaitApplicationTest {
         firstUser.setWaitlist(waitingList);
         secondUser.setWaitlist(waitingList);
         thirdUser.setWaitlist(waitingList);
-        
+
         waitingListRepository.save(waitingList);
 
         Iterable<WaitingList> allTheList = waitingListRepository.findAll();

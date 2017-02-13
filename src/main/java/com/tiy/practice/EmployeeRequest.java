@@ -6,15 +6,33 @@ package com.tiy.practice;
 public class EmployeeRequest {
     private String name;
     private String password;
-    private String employeeName;
+    private String firstName;
+    private String lastName;
+    private String position;
 
-    public EmployeeRequest(String name, String password, String employeeName) {
+    public EmployeeRequest(String name, String password, String firstName) {
         this.name = name;
         this.password = password;
-        this.employeeName = employeeName;
+        this.firstName = firstName;
     }
 
     public EmployeeRequest() {
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getName() {
@@ -33,11 +51,11 @@ public class EmployeeRequest {
         this.password = password;
     }
 
-    public String getEmployeeName() {
-        return employeeName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 }

@@ -1,5 +1,7 @@
 package com.tiy.practice;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 /**
@@ -10,14 +12,23 @@ import javax.persistence.*;
 public class Employee {
     private Long id;
     private Restaurant restaurant;
-    private String employeeName;
+    private String firstName;
+    private String lastName;
+    private String position;
 
     public Employee() {
     }
 
-    public Employee(Restaurant restaurant, String employeeName) {
+    public Employee(Restaurant restaurant, String firstName) {
         this.restaurant = restaurant;
-        this.employeeName = employeeName;
+        this.firstName = firstName;
+    }
+
+    public Employee(Restaurant restaurant, String firstName, String lastName, String position) {
+        this.restaurant = restaurant;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.position = position;
     }
 
     @Id
@@ -30,21 +41,39 @@ public class Employee {
     {
         this.id = id;
     }
-    public String getEmployeeName()
+    public String getFirstName()
     {
-        return employeeName;
+        return firstName;
     }
-    public void setEmployeeName(String employeeName)
+    public void setFirstName(String firstName)
     {
-        this.employeeName = employeeName;
+        this.firstName = firstName;
     }
 
     @ManyToOne(cascade=CascadeType.ALL)
+    @JsonBackReference
     public Restaurant getRestaurant() {
         return restaurant;
     }
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

@@ -8,7 +8,14 @@
         ng-repeat="waititem in waitlist.listOfUsers">
         {{waititem.firstName}} {{waititem.lastName}}
         <span class="badge">Party of &nbsp;{{waititem.partyof}}</span>
+
+
     </li>
 </ul>
+
+    <div> <button type="button" ng-click="addGuest()">Add</button>
+    </div>
+
+
 
 </div>

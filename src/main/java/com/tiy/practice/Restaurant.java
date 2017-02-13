@@ -57,6 +57,9 @@ public class Restaurant {
     @JsonManagedReference
     @OneToOne(cascade = CascadeType.MERGE, mappedBy = "restaurant")
     public WaitingList getWaitingList() {
+        if (waitingList == null){
+            waitingList = new WaitingList();
+        }
         return waitingList;
     }
 
@@ -65,6 +68,7 @@ public class Restaurant {
     }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    @JsonManagedReference
     public Set<Employee> getEmployees() {
         if (employees == null) {
             employees = new HashSet<>();
