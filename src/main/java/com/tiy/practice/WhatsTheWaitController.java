@@ -43,6 +43,8 @@ public class WhatsTheWaitController {
     @PostConstruct
     public void initializeDB() {
 
+        //hello world
+
         currentRestaurant = new Restaurant();
         waitingList = new WaitingList();
         if (guestRepository.count() == 0) {
