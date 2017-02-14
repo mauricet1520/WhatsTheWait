@@ -47,6 +47,7 @@ public class Guest {
         this.partyof = partyof;
     }
 
+    //Many to One relationship with WaitingList class
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonBackReference
     public WaitingList getWaitlist() {
