@@ -62,13 +62,11 @@ testApp.controller('controller1', function($scope, $http, $location, $rootScope)
             };
 
 
+
+
 $scope.currentGuest = {};
 $rootScope.selectedFirstName = {};
 $rootScope.returnedGuest = {};
-
-
-
-
 
 
 });
@@ -95,6 +93,7 @@ testApp.controller('controller2', function($scope, $http, $location, $rootScope)
 
     };
         $scope.currentWait = $rootScope.waitlist;
+
 
 
     $scope.getRestaurants = function() {
@@ -146,6 +145,11 @@ testApp.controller('controller3', function($scope, $rootScope, $http, $location)
                 });
 
         };
+
+             $rootScope.theItems = document.getElementById("myList");
+
+//             $rootScope.allTheItems = $scope.theItems;
+
 
         $scope.list= {};
 

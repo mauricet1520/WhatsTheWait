@@ -56,7 +56,7 @@ public class WaitingList {
         this.restaurantId = restaurantId;
     }
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "restaurant_id")
     @JsonBackReference
     public Restaurant getRestaurant() {

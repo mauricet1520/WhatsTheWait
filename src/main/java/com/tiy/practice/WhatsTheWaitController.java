@@ -51,6 +51,8 @@ public class WhatsTheWaitController {
             Guest guest = new Guest("Maurice", "Thomas", "mauricet1520@gmail.com", "1520", 0);
             Restaurant restaurant = new Restaurant("Red Lobster", "Seafood", "Buford Ga", "redLob", "redlobster@gmail.com");
             guestRepository.save(guest);
+            waitingList.setRestaurant(restaurant);
+            restaurant.setWaitingList(waitingList);
             restaurantRepository.save(restaurant);
         } else {
             System.out.println("DB already initialized!");
@@ -215,12 +217,15 @@ public class WhatsTheWaitController {
     @RequestMapping(path = "/register_restaurant.json", method = RequestMethod.POST)
     public Restaurant registerRestaurant(@RequestBody Restaurant restaurant) {
 
+        WaitingList waitingList;
         Restaurant registeredRestaurant = new Restaurant(restaurant.getName(), restaurant.getType(),
                 restaurant.getAddress(), restaurant.getPassword(), restaurant.getEmail());
+        waitingList = new WaitingList(registeredRestaurant, null, 0);
 
+//        waitingList.setRestaurant(registeredRestaurant);
         registeredRestaurant.setWaitingList(waitingList);
-        waitingList.setRestaurant(registeredRestaurant);
-        waitingListRepository.save(waitingList);
+
+//        waitingListRepository.save(waitingList);
         restaurantRepository.save(registeredRestaurant);
         return registeredRestaurant;
     }

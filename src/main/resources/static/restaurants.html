@@ -16,9 +16,17 @@
     <ul class="list-group">
         <button type="button" ng-click="getWaitList(restaurantItem.name)"
             class="list-group-item"
-            ng-repeat="restaurantItem in restaurantList">
-            {{restaurantItem.name}}  -&nbsp; {{restaurantItem.type}} -&nbsp; {{restaurantItem.address}}
-            <span class="badge">{{restaurantItem.waitingList.waitTime}} minute wait</span>
+            ng-repeat="restaurantItem in restaurantList" id="listOfButtons">
+            {{restaurantItem.name}}  -&nbsp; {{restaurantItem.type}}
+            -&nbsp; {{restaurantItem.address}}
+            <span class="badge" style="float:right;">{{restaurantItem.waitingList.waitTime}} minute wait</span>
+
+            <span style="float:right; margin-right: 30px; color:grey;"><i>{{restaurantItem.waitingList.listOfUsers.length}} Guests</i></span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </button>
     </ul>
 </div>

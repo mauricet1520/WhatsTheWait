@@ -45,7 +45,7 @@ public class Restaurant {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -55,7 +55,7 @@ public class Restaurant {
     }
 
     @JsonManagedReference
-    @OneToOne(cascade = CascadeType.MERGE, mappedBy = "restaurant")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "restaurant")
     public WaitingList getWaitingList() {
         if (waitingList == null){
             waitingList = new WaitingList();
