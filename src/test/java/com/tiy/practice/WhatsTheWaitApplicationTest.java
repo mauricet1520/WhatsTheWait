@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TimerTask;
 
 import static org.junit.Assert.*;
 
@@ -169,6 +170,12 @@ public class WhatsTheWaitApplicationTest {
         restaurantRepository.delete(secondRestaurant);
         restaurantRepository.delete(thirdRestaurant);
 
+    }
+
+    @Test
+    public void testTimer() {
+        TimeKeeper timeKeeper = new TimeKeeper();
+        timeKeeper.start();
     }
 
 }

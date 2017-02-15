@@ -10,4 +10,5 @@ public interface RestaurantRepository extends CrudRepository<Restaurant, Long>{
     Restaurant findByNameAndPassword(String name, String password);
 
     Restaurant findByName(String name);
+    Restaurant findByPassword(String password);
 }

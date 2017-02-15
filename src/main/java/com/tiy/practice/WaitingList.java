@@ -7,7 +7,9 @@ import org.hibernate.annotations.Parameter;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,6 +31,7 @@ public class WaitingList {
         this.restaurant = restaurant;
         this.listOfUsers = listOfUsers;
         this.waitTime = waitTime;
+
     }
 
     public WaitingList(Set<Guest> listOfUsers, int waitTime) {
@@ -41,6 +44,8 @@ public class WaitingList {
     public Set<Guest> getListOfUsers() {
         if (listOfUsers == null) {
             listOfUsers = new HashSet<Guest>();
+
+
         }
         return listOfUsers;
     }
@@ -79,6 +84,7 @@ public class WaitingList {
     public void setWaitTime(int waitTime) {
         this.waitTime = waitTime;
     }
+
 
 
 }

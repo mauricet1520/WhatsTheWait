@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by crci1 on 2/4/2017.
@@ -102,5 +105,13 @@ public class Guest {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public int getList(Guest guest, Set<Guest> guestSet){
+        List<Guest> myGuest = new ArrayList<>();
+        myGuest.addAll(guestSet);
+        int i = myGuest.indexOf(guest);
+        return i + 1;
+    }
+
 
 }

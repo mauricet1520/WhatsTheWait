@@ -2,17 +2,16 @@
 <h4>{{currentRestaurant}} is on a {{waitlist.waitTime}} minute wait.</h4>
 <div class="waitlist-list">
 
-<ul class="list-group">
-    <button type="button"
-            id="myList"
+<ol class="list-group">
+    <li id="myList"
         class="list-group-item"
         ng-repeat="waititem in waitlist.listOfUsers">
-        {{waititem.firstName}} {{waititem.lastName}}
+        {{$index + 1}} - {{waititem.firstName}} {{waititem.lastName}}
         <span class="badge">Party of &nbsp;{{waititem.partyof}}</span>
 
 
-    </button>
-</ul>
+    </li>
+</ol>
 
     <div> <button type="button" ng-click="addGuest()">Add</button>
     </div>
