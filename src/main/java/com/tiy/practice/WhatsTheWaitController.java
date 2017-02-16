@@ -41,7 +41,7 @@ public class WhatsTheWaitController {
 
     @PostConstruct
     public void initializeDB() {
-
+        //Add the following guest and restaurant
         currentRestaurant = new Restaurant();
         waitingList = new WaitingList();
         if (guestRepository.count() == 0) {
