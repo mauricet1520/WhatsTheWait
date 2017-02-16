@@ -11,7 +11,6 @@ public class GuestRequest {
     private long location;
     private int partyof;
 
-
     public GuestRequest() {
     }
 

@@ -68,7 +68,6 @@ public class Employee {
         this.lastName = lastName;
     }
 
-
     public String getPosition() {
         return position;
     }

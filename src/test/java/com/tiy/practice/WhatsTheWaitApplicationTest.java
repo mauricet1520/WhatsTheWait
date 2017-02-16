@@ -11,14 +11,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TimerTask;
 
 import static org.junit.Assert.*;
-
-/**
- * Created by crci1 on 2/7/2017.
- */
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -172,10 +169,12 @@ public class WhatsTheWaitApplicationTest {
 
     }
 
-    @Test
-    public void testTimer() {
-        TimeKeeper timeKeeper = new TimeKeeper();
-        timeKeeper.start();
-    }
+   @Test
+    public void testDeletingGuest() {
+        Guest guest = new Guest("Calvin", "Knox", "calvin@gmail.com", "2020", 10);
+        Restaurant restaurant = new Restaurant("Bonefish", "Casual Dining", "Buford, Ga","2020","bone@gmail.com");
+        restaurant.getWaitingList().getListOfUsers().add(guest);
+
+   }
 
 }

@@ -5,11 +5,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
-
-/**
- * Created by crci1 on 2/5/2017.
- */
 
 @Entity
 public class Restaurant {
@@ -26,7 +23,6 @@ public class Restaurant {
     public Restaurant() {
 
     }
-
 
     public Restaurant(String name, String type, String address, String password, String email) {
         this.name = name;
@@ -72,7 +68,7 @@ public class Restaurant {
     @JsonManagedReference
     public Set<Employee> getEmployees() {
         if (employees == null) {
-            employees = new HashSet<>();
+            employees = new LinkedHashSet<>();
         }
         return employees;
     }

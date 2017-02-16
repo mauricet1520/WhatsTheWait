@@ -20,6 +20,7 @@ public class Guest {
     private String password;
     private String email;
     private int partyof;
+    private int waiting;
     private WaitingList waitlist;
 
     @Id
@@ -104,6 +105,15 @@ public class Guest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Column(name = "waiting")
+    public int getWaiting() {
+        return waiting;
+    }
+
+    public void setWaiting(int waiting) {
+        this.waiting = waiting;
     }
 
     public int getList(Guest guest, Set<Guest> guestSet){

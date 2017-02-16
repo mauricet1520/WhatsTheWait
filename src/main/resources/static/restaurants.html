@@ -1,9 +1,10 @@
 <div class="">
-<h2>Restaurants</h2>
+<h3>Restaurants</h3>
 <div class="restaurant-list">
 
-    <h4>Current User:&nbsp; {{returnedGuest.firstName}}&nbsp; Party of&nbsp;{{returnedGuest.partyof}}
-    </h4>
+    Already a registered? <a href="#/">Sign in</a>
+    <h4>Current User: {{returnedGuest.firstName}}&nbsp; Party of {{returnedGuest.partyof}}  </h4>
+
     <!--<ul class="list-group">-->
 
         <!--<li ng-repeat ="restaurantItem in restaurantList">-->
@@ -19,7 +20,7 @@
             ng-repeat="restaurantItem in restaurantList" id="listOfButtons">
             {{restaurantItem.name}}  -&nbsp; {{restaurantItem.type}}
             -&nbsp; {{restaurantItem.address}}
-            <span class="badge" style="float:right;">{{restaurantItem.waitingList.waitTime}} minute wait</span>
+            <span class="badge" style="float:right;">{{restaurantItem.waitingList.waitTime}} minute wait </span>
 
             <span style="float:right; margin-right: 30px; color:grey;"><i>{{restaurantItem.waitingList.listOfUsers.length}} Guests</i></span>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

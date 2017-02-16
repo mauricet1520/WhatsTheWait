@@ -6,91 +6,92 @@ testApp.config(function($routeProvider) {
     console.log("Initializing ng-router");
     $routeProvider
         .when("/", {
-//            template: "<h2>test 1</h2>"
             templateUrl: "login.html",
             controller: "controller1"
 
         })
-        .when("/restaurants", {
-        //            template: "<h2>test 1</h2>"
-                    templateUrl: "restaurants.html",
-                    controller: "controller2"
 
-                })
+        .when("/restaurants", {
+            templateUrl: "restaurants.html",
+            controller: "controller2"
+
+        })
+
         .when("/waitlist", {
-//            template: "<h2>test 2</h2>"
             templateUrl: "waitlist.html",
             controller: "controller3"
 
         })
+
         .when("/reservations", {
-//            template: "<h2>test 3</h2>"
             templateUrl: "reservations.html",
             controller: "controller4"
 
         })
 
         .when("/register", {
-        //            template: "<h2>test 3</h2>"
-                    templateUrl: "register.html",
-                    controller: "controller5"
+            templateUrl: "register.html",
+            controller: "controller5"
 
-                })
+        })
 
-         .when("/employee-register", {
-                 //            template: "<h2>test 3</h2>"
-                             templateUrl: "employee-register.html",
-                             controller: "controller6"
+        .when("/employee-register", {
+             templateUrl: "employee-register.html",
+             controller: "controller6"
 
-                  })
+        })
 
-         .when("/employee-sign-in", {
-                          //            template: "<h2>test 3</h2>"
-                                      templateUrl: "employee-sign-in.html",
-                                      controller: "controller7"
+        .when("/employee-sign-in", {
+              templateUrl: "employee-sign-in.html",
+              controller: "controller7"
 
-                           })
+        })
+        .when("/employee-waitlist", {
+             templateUrl: "employee-waitlist.html",
+             controller: "controller8"
+
+        })
+
 });
 
 testApp.controller('controller1', function($scope, $http, $location, $rootScope) {
     console.log("init controller 1...")
 
     $scope.login = function() {
-                console.log("About to go get me some data!");
-                 console.log("About to sign in the following guest " + JSON.stringify($scope.currentGuest));
+         console.log("About to go get me some data!");
+         console.log("About to sign in the following guest " + JSON.stringify($scope.currentGuest));
 
-                $http.post("/login_guest.json", $scope.currentGuest)
-                    .then(
-                        function successCallback(response) {
-                            console.log(response.data);
-                            console.log("Adding data to scope");
-                            $rootScope.returnedGuest = response.data;
-                            $location.path("/restaurants");
-                        },
-                        function errorCallback(response) {
-                            console.log("Unable to get data");
-                             $location.path("/");
-                             alert("Wrong email or password");
+         $http.post("/login_guest.json", $scope.currentGuest)
+             .then(
+                 function successCallback(response) {
+                     console.log(response.data);
+                     console.log("Adding data to scope");
+                     $rootScope.returnedGuest = response.data;
+                     $location.path("/restaurants");
+                 },
 
-                        });
-            };
+                function errorCallback(response) {
+                     console.log("Unable to get data");
+                     $location.path("/");
+                     alert("Wrong email or password");
+
+                });
+    };
 
 $scope.currentGuest = {};
 $rootScope.selectedFirstName = {};
 $rootScope.returnedGuest = {};
-
 
 });
 
 testApp.controller('controller2', function($scope, $http, $location, $rootScope) {
     console.log("init controller 2...")
 
-
     $rootScope.getWaitList = function(name){
         console.log("fetching waitlist for "+ name)
         $rootScope.restaurantName = name;
         $location.path("/waitlist");
-            $http.get("get_restaurant_waitlist.json?name=" + name)
+        $http.get("get_restaurant_waitlist.json?name=" + name)
             .then(
                 function successCallback(response) {
                     console.log(response.data);
@@ -100,33 +101,31 @@ testApp.controller('controller2', function($scope, $http, $location, $rootScope)
                 },
                 function errorCallback(response) {
                     console.log("Unable to get data");
+                    alert("You must be signed in or registered");
+                    $location.path("/");
+
                 });
+    };
+    $scope.currentWait = $rootScope.waitlist;
+
+    $rootScope.getRestaurants = function() {
+        console.log("fetching restaurants list from server ...");
+        $http.get("/get_restaurants.json")
+            .then(
+                function successCallback(response) {
+                    console.log(response.data);
+                    console.log("Adding data to scope");
+                    $rootScope.restaurantList = response.data;
+                },
+                function errorCallback(response) {
+                console.log("Unable to get data");
+        });
 
     };
-        $scope.currentWait = $rootScope.waitlist;
 
-    $scope.getRestaurants = function() {
-            console.log("fetching restaurants list from server ...");
-            $http.get("/get_restaurants.json")
-                .then(
-                    function successCallback(response) {
-                        console.log(response.data);
-                        console.log("Adding data to scope");
-                        $rootScope.restaurantList = response.data;
-                    },
-                    function errorCallback(response) {
-                        console.log("Unable to get data");
-                    });
-
-        };
-
-        $rootScope.restaurantList = {};
-//        $rootScope.restaurantName = {};
-
-        $scope.myListItems = [];
-        $scope.getRestaurants();
-//        $scope.currentWait = $rootScope.waitlist;
-
+$rootScope.restaurantList = {};
+$scope.myListItems = [];
+$scope.getRestaurants();
 
 });
 
@@ -134,63 +133,53 @@ testApp.controller('controller3', function($scope, $rootScope, $http, $location)
     console.log("init controller 3...")
 
     $scope.addGuest = function(){
-            console.log("add guest to the wait")
-            $scope.currentWaitlist = $rootScope.waitlist
-            $scope.returnedWaitlist = $rootScope.getWaitList
-            $http.post("/add_guest_to_waitlist.json", $scope.currentWaitlist)
+        console.log("add guest to the wait")
+        $scope.currentWaitlist = $rootScope.waitlist
+        $scope.returnedWaitlist = $rootScope.getWaitList
+        $http.post("/add_guest_to_waitlist.json", $scope.currentWaitlist)
             .then(
                 function successCallback(response) {
-                    console.log(response.data);
-                    console.log("Adding data to scope");
-                    $rootScope.waitlist = response.data;
+                     console.log(response.data);
+                     console.log("Adding data to scope");
+                     $rootScope.waitlist = response.data;
                      $scope.returnedWaitlist($rootScope.restaurantName)
-                    $location.path("/waitlist");
-
+                     $location.path("/waitlist");
                 },
                 function errorCallback(response) {
                     console.log("Unable to get data");
                     alert("You must sign in or register");
                     $location.path("/");
+            });
 
-                });
+    };
 
-        };
-
-             $rootScope.theItems = document.getElementById("myList");
-
-//             $rootScope.allTheItems = $scope.theItems;
-
-
-        $scope.list= {};
-
-    $scope.currentRestaurant = $rootScope.restaurantName;
+$scope.list= {};
+$scope.currentRestaurant = $rootScope.restaurantName;
 });
 
 testApp.controller('controller5', function($scope, $http, $rootScope, $location) {
     console.log("init controller 5...")
 
     $scope.register = function() {
-                    console.log("About to go get me some data!");
-                     console.log("About to register the following guest " + JSON.stringify($scope.currentGuest));
+        console.log("About to go get me some data!");
+        console.log("About to register the following guest " + JSON.stringify($scope.currentGuest));
 
-                    $http.post("/register_guest.json", $scope.currentGuest)
-                        .then(
-                            function successCallback(response) {
-                                console.log(response.data);
-                                console.log("Adding data to scope");
-                                $rootScope.returnedGuest = response.data;
-                                $location.path("/restaurants");
-                            },
-                            function errorCallback(response) {
-                                console.log("Unable to get data");
-                                 $location.path("/register");
+            $http.post("/register_guest.json", $scope.currentGuest)
+                .then(
+                    function successCallback(response) {
+                        console.log(response.data);
+                        console.log("Adding data to scope");
+                        $rootScope.returnedGuest = response.data;
+                        $location.path("/restaurants");
+                     },
+                    function errorCallback(response) {
+                        console.log("Unable to get data");
+                         $location.path("/register");
 
-                            });
+                    });
                 };
 
-                $scope.currentGuest = {};
-
-
+    $scope.currentGuest = {};
 
 });
 
@@ -198,26 +187,47 @@ testApp.controller('controller6', function($scope, $http, $rootScope, $location)
     console.log("init controller 6...")
 
     $scope.registerEmployee = function() {
-                console.log("About to go get me some data!");
-                console.log("About to register the following employee " + JSON.stringify($scope.employee));
+        console.log("About to go get me some data!");
+        console.log("About to register the following employee " + JSON.stringify($scope.employee));
 
-                $http.post("/add_employee.json", $scope.employee)
-                    .then(
-                                function successCallback(response) {
-                                    console.log(response.data);
-                                    console.log("Adding data to scope");
-                                    $scope.returnedRestaurant = response.data;
-                                    $location.path("/restaurants");
-                                },
-                                function errorCallback(response) {
-                                    console.log("Unable to get data");
-                                     $location.path("/employee-register");
+        $http.post("/add_employee.json", $scope.employee)
+            .then(
+                function successCallback(response) {
+                    console.log(response.data);
+                    console.log("Adding data to scope");
+                    $scope.returnedRestaurant = response.data;
+                    $location.path("/employee-waitlist");
+                },
+                function errorCallback(response) {
+                    console.log("Unable to get data");
+                    $location.path("/employee-register");
+                });
+        };
 
-                                });
-                    };
+$scope.employee = {};
+$scope.returnedRestaurant = {};
 
-                    $scope.employee = {};
-                    $scope.returnedRestaurant = {};
+      $scope.registerRestaurant = function() {
+          console.log("About to go get me some data!");
+          console.log("About to add the following restaurant " + JSON.stringify($scope.newRestaurant));
+
+          $http.post("/register_restaurant.json", $scope.newRestaurant)
+              .then(
+                  function successCallback(response) {
+                      console.log(response.data);
+                      console.log("Adding data to scope");
+                      $scope.returnedNewRestaurant = response.data;
+                      $location.path("/restaurants");
+                  },
+                  function errorCallback(response) {
+                      console.log("Unable to get data");
+                      $location.path("/employee-sign-in");
+
+          });
+      };
+
+$scope.newRestaurant = {};
+$scope.returnedNewRestaurant = {};
 
 });
 
@@ -225,45 +235,90 @@ testApp.controller('controller7', function($scope, $http, $rootScope, $location)
     console.log("init controller 7...")
 
     $scope.signInEmployee = function() {
-                console.log("About to go get me some data!");
-                console.log("About to sign in the following employee " + JSON.stringify($scope.restaurantEmployee));
+        console.log("About to go get me some data!");
+        console.log("About to sign in the following employee " + JSON.stringify($scope.restaurantEmployee));
 
-                $http.post("/employee_sign_in.json", $scope.restaurantEmployee)
-                    .then(
-                                function successCallback(response) {
-                                    console.log(response.data);
-                                    console.log("Adding data to scope");
-                                    $scope.returnedRestaurant = response.data;
-                                    $location.path("/restaurants");
-                                },
-                                function errorCallback(response) {
-                                    console.log("Unable to get data");
-                                     $location.path("/employee-sign-in");
+        $http.post("/employee_sign_in.json", $rootScope.restaurantEmployee)
+            .then(
+                function successCallback(response) {
+                    console.log(response.data);
+                    console.log("Adding data to scope");
+                    $scope.returnedRestaurant = response.data;
+                    $location.path("/employee-waitlist");
+                },
+                function errorCallback(response) {
+                    console.log("Unable to get data");
+                     $location.path("/employee-sign-in");
 
-                                });
-                    };
+                });
+    };
 
-                    $scope.restaurantEmployee = {};
-                    $scope.returnedRestaurant = {};
+$rootScope.restaurantEmployee = {};
+$scope.returnedRestaurant = {};
+
 
 });
 
 
+testApp.controller('controller8', function($scope, $http, $rootScope, $location) {
+    console.log("init controller 8...")
+
+    $scope.employeeAddGuest = function() {
+        console.log("About to go get me some data!");
+        console.log("About to add in the following guest " + JSON.stringify($scope.newGuest));
+
+        $http.post("/add_guest_from_employee.json", $scope.newGuest)
+            .then(
+                function successCallback(response) {
+                    console.log(response.data);
+                    console.log("Adding data to scope");
+                    $scope.returnedUpdatedList = response.data;
+                   $rootScope.getEmployeeList($rootScope.restaurantNameFromEmployee)
+                    $location.path("/employee-waitlist");
+                },
+                function errorCallback(response) {
+                    console.log("Unable to get data");
+                     $location.path("/employee-sign-in");
+
+                });
+    };
+
+$scope.returnedUpdatedList = {};
+$scope.newGuest = {};
 
 
-testApp.controller('testController', function($scope, $http, $rootScope) {
-    console.log("Initializing testController");
-    $scope.testVar = "What's The Wait";
+     $rootScope.getEmployeeList = function(name){
+         console.log("fetching waitlist for "+ name)
+         $rootScope.restaurantNameFromEmployee = name;
+         $http.get("/get_employee_waitlist.json?name=" + name)
+         .then(
+             function successCallback(response) {
+                 console.log(response.data);
+                 console.log("Adding data to scope");
+                 $rootScope.employeeWaitlist = response.data;
+                 $location.path("/employee-waitlist");
+
+             },
+            function errorCallback(response) {
+                console.log("Unable to get data");
+            });
+
+        };
+            $scope.currentWait = $rootScope.employeeWaitlist;
 
 
-    $scope.getRestaurants = function() {
-            console.log("fetching restaurants list from server ...");
-            $http.get("/get_restaurants.json")
+    $scope.deleteGuest = function(name){
+            console.log("fetching guest" + name)
+//            $rootScope.restaurantNameFromEmployee = name;
+//            $location.path("/employee-waitlist");
+                $http.post("/delete_guest.json?name=" + name)
                 .then(
                     function successCallback(response) {
                         console.log(response.data);
-                        console.log("Adding data to scope");
-                        $scope.restaurantList = response.data;
+                        console.log("Deleting data from scope");
+//                        $rootScope.employeeWaitlist = response.data;
+                        $location.path("/employee-waitlist");
+
                     },
                     function errorCallback(response) {
                         console.log("Unable to get data");
@@ -271,9 +326,31 @@ testApp.controller('testController', function($scope, $http, $rootScope) {
 
         };
 
-        $scope.myguest = $rootScope.returnedGuest;
-                            $scope.restaurantList = {};
-                            $scope.getRestaurants();
+});
+
+
+testApp.controller('testController', function($scope, $http, $rootScope) {
+    console.log("Initializing testController");
+    $scope.testVar = "What's The Wait";
+
+    $scope.getRestaurants = function() {
+        console.log("fetching restaurants list from server ...");
+        $http.get("/get_restaurants.json")
+            .then(
+                function successCallback(response) {
+                    console.log(response.data);
+                    console.log("Adding data to scope");
+                    $scope.restaurantList = response.data;
+                },
+                function errorCallback(response) {
+                    console.log("Unable to get data");
+                });
+
+    };
+
+$scope.myguest = $rootScope.returnedGuest;
+$scope.restaurantList = {};
+$scope.getRestaurants();
 
 
 });

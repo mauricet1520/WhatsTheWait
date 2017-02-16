@@ -7,10 +7,7 @@ import org.hibernate.annotations.Parameter;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by crci1 on 2/7/2017.
@@ -20,7 +17,7 @@ import java.util.Set;
 public class WaitingList {
     private Long restaurantId;
     private Restaurant restaurant;
-    private Set<Guest> listOfUsers = new HashSet<>();
+    private Set<Guest> listOfUsers = new LinkedHashSet<>();
     private int waitTime;
 
 
@@ -43,8 +40,7 @@ public class WaitingList {
     @JsonManagedReference
     public Set<Guest> getListOfUsers() {
         if (listOfUsers == null) {
-            listOfUsers = new HashSet<Guest>();
-
+            listOfUsers = new LinkedHashSet<>();
 
         }
         return listOfUsers;
@@ -84,7 +80,5 @@ public class WaitingList {
     public void setWaitTime(int waitTime) {
         this.waitTime = waitTime;
     }
-
-
 
 }

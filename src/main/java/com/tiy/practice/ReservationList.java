@@ -19,7 +19,6 @@ public class ReservationList {
     private java.sql.Timestamp time;
     private Restaurant restaurant;
 
-
     @Id
     @GeneratedValue(generator = "myGenerator")
     @GenericGenerator(name = "myGenerator", strategy = "foreign", parameters = @Parameter(value = "restaurant", name = "property"))
@@ -40,7 +39,6 @@ public class ReservationList {
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
-
 
     public ReservationList() {
     }

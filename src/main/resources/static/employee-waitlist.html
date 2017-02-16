@@ -1,0 +1,27 @@
+
+<div>
+
+    <form action="/login" method="post">
+        <span>FirstName: <input type="text" ng-model="newGuest.firstName"/></span>
+        <span>LastName: <input type="text" ng-model="newGuest.lastName"/></span>
+        <span>Party Size: <input type="text" ng-model="newGuest.partyof"/></span>
+        <span>  <input type="button" ng-click="employeeAddGuest()" value="Add guest"/></span>
+
+    </form>
+</div>
+
+<div class="waitlist-list">
+<ol class="list-group">
+    <li id="myList"
+        class="list-group-item"
+        ng-repeat="waititem in employeeWaitlist.listOfUsers">
+        {{$index + 1}} - {{waititem.firstName}} {{waititem.lastName}}
+        <span class="badge">Party of &nbsp;{{waititem.partyof}}</span>
+        <input type="button" ng-click="deleteGuest(waititem.firstName)" value="Delete"/>
+
+    </li>
+</ol>
+</div>
+
+<div><input type="button" ng-click = "getEmployeeList(restaurantEmployee.name)" value="Update"/></div>
+

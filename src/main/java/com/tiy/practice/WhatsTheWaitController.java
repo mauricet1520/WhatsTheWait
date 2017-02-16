@@ -39,11 +39,8 @@ public class WhatsTheWaitController {
 
     WaitingList waitingList;
 
-
     @PostConstruct
     public void initializeDB() {
-
-        //hello world
 
         currentRestaurant = new Restaurant();
         waitingList = new WaitingList();
@@ -93,10 +90,10 @@ public class WhatsTheWaitController {
         Iterable<Restaurant> allRestaurants = restaurantRepository.findAll();
         for (Restaurant currentRestaurant : allRestaurants) {
             waitingList = currentRestaurant.getWaitingList();
-//            waitingList.setWaitTime(0);
-//            for (Guest guest : waitingList.getListOfUsers()) {
-//                waitingList.setWaitTime(waitingList.getWaitTime() + 5);
-//            }
+            waitingList.setWaitTime(0);
+            for (Guest guest : waitingList.getListOfUsers()) {
+                waitingList.setWaitTime(waitingList.getWaitTime() + 5);
+            }
             restaurantList.add(currentRestaurant);
         }
 
@@ -104,7 +101,7 @@ public class WhatsTheWaitController {
     }
 
     @RequestMapping(path = "/add_guest_to_waitlist.json", method = RequestMethod.POST)
-    public List<WaitingList> addGuesttoWaitList(HttpSession session, @RequestBody WaitListRequest waitListRequest)
+    public List<WaitingList> addGuesttoWaitList(HttpSession session)
             throws Exception {
 
         List<WaitingList> lists = new ArrayList<>();
@@ -129,32 +126,13 @@ public class WhatsTheWaitController {
             currentGuest.setWaitlist(waitingList);
         }
 
-//        Guest testedGuest = currentGuest;
-//
-//        WaitingList testedWaitlist = waitingListRepository.findOne(waitingList.getRestaurantId());
-//
-//        if (testedWaitlist.getListOfUsers().contains(testedGuest)){
-//            waitingList.setWaitTime(0);
-//            for (Guest guest : waitingList.getListOfUsers()) {
-//                waitingList.setWaitTime(waitingList.getWaitTime() + 5);
-//            }
-//            Iterable<WaitingList> waitingLists = waitingListRepository.findAll();
-//            for (WaitingList list : waitingLists) {
-//                lists.add(list);
-//            }
-//            return lists;
-//
-//        }
-
         waitingListRepository.save(waitingList);
         restaurantRepository.save(currentRestaurant);
-        TimeKeeper timeKeeper = new TimeKeeper();
-        timeKeeper.start();
 
-        waitingList.setWaitTime(timeKeeper.getSecondsPassed());
-//        for (Guest guest : waitingList.getListOfUsers()) {
-//            waitingList.setWaitTime(waitingList.getWaitTime() + 5);
-//        }
+        waitingList.setWaitTime(0);
+        for (Guest guest : waitingList.getListOfUsers()) {
+            waitingList.setWaitTime(waitingList.getWaitTime() + 5);
+        }
         Iterable<WaitingList> waitingLists = waitingListRepository.findAll();
         for (WaitingList list : waitingLists) {
             lists.add(list);
@@ -184,12 +162,11 @@ public class WhatsTheWaitController {
             restaurantRepository.save(currentRestaurant);
 
         }
-        waitingList.getWaitTime();
 
-//        waitingList.setWaitTime(0);
-//        for (Guest guest : waitingList.getListOfUsers()) {
-//            waitingList.setWaitTime(waitingList.getWaitTime() + 5);
-//        }
+        waitingList.setWaitTime(0);
+        for (Guest guest : waitingList.getListOfUsers()) {
+            waitingList.setWaitTime(waitingList.getWaitTime() + 5);
+        }
         return waitingList;
     }
 
@@ -216,26 +193,26 @@ public class WhatsTheWaitController {
                 restaurant.getAddress(), restaurant.getPassword(), restaurant.getEmail());
         waitingList = new WaitingList(registeredRestaurant, null, 0);
 
-//        waitingList.setRestaurant(registeredRestaurant);
         registeredRestaurant.setWaitingList(waitingList);
-
-//        waitingListRepository.save(waitingList);
         restaurantRepository.save(registeredRestaurant);
         return registeredRestaurant;
     }
 
     @RequestMapping(path = "/add_employee.json", method = RequestMethod.POST)
-    public Restaurant addEmployee(@RequestBody EmployeeRequest employeeRequest) {
+    public Restaurant addEmployee(HttpSession session, HttpSession httpSession, @RequestBody EmployeeRequest employeeRequest) {
 
-        Restaurant myRestaurant = restaurantRepository.findByNameAndPassword(employeeRequest.getName(), employeeRequest.getPassword());
-        Employee currentEmployee = new Employee(myRestaurant, employeeRequest.getFirstName(), employeeRequest.getLastName(),
+        currentRestaurant = restaurantRepository.findByNameAndPassword(employeeRequest.getName(), employeeRequest.getPassword());
+        Employee currentEmployee = new Employee(currentRestaurant, employeeRequest.getFirstName(), employeeRequest.getLastName(),
                 employeeRequest.getPosition());
 
-        myRestaurant.getEmployees().add(currentEmployee);
-        currentEmployee.setRestaurant(myRestaurant);
+        httpSession.setAttribute("restaurant", currentRestaurant);
 
-        restaurantRepository.save(myRestaurant);
-        return myRestaurant;
+        currentRestaurant.getEmployees().add(currentEmployee);
+        currentEmployee.setRestaurant(currentRestaurant);
+        session.setAttribute("employee", currentEmployee);
+
+        restaurantRepository.save(currentRestaurant);
+        return currentRestaurant;
     }
 
     @RequestMapping(path = "/delete_restaurant.json", method = RequestMethod.POST)
@@ -245,11 +222,81 @@ public class WhatsTheWaitController {
 
     }
 
+    @RequestMapping(path = "/delete_guest.json", method = RequestMethod.POST)
+    public void deleteGuest(String name) {
+        Guest guest = guestRepository.findByFirstName(name);
+        guestRepository.delete(guest);
+    }
+
     @RequestMapping(path = "/employee_sign_in.json", method = RequestMethod.POST)
-    public Restaurant employeeSign(@RequestBody EmployeeRequest employee) {
+    public Restaurant employeeSign(HttpSession session, HttpSession httpSession, @RequestBody EmployeeRequest employee) throws Exception {
         Employee currentEmployee = employeeRepository.findByFirstNameAndLastName(employee.getFirstName(), employee.getLastName());
-        Restaurant employeeRestaurant = restaurantRepository.findByPassword(employee.getPassword());
-        return employeeRestaurant;
+        currentRestaurant = restaurantRepository.findByPassword(employee.getPassword());
+        httpSession.setAttribute("restaurant", currentRestaurant);
+
+        if (currentEmployee == null && currentRestaurant == null) {
+            throw new Exception("Wrong password or email or restaurant");
+        }
+
+        session.setAttribute("employee", currentEmployee);
+        return currentRestaurant;
+    }
+
+
+    @RequestMapping(path = "/add_guest_from_employee.json", method = RequestMethod.POST)
+    public List<WaitingList> employeeAddGuest(HttpSession session, HttpSession httpSession, @RequestBody GuestRequest guestRequest) throws Exception {
+
+        List<WaitingList> lists = new ArrayList<>();
+        Employee currentEmployee = (Employee) session.getAttribute("employee");
+        currentRestaurant = currentEmployee.getRestaurant();
+
+        Guest currentGuest = new Guest(guestRequest.getFirstName(), guestRequest.getLastName(),
+                null, null, guestRequest.getPartyof());
+
+        guestRepository.save(currentGuest);
+
+        waitingList = waitingListRepository.findOne(currentRestaurant.getId());
+        if (waitingList == null) {
+            Set<Guest> guests = new HashSet<>();
+            guests.add(currentGuest);
+            waitingList = new WaitingList(currentRestaurant, guests, 0);
+            currentGuest.setWaitlist(waitingList);
+            currentRestaurant.setWaitingList(waitingList);
+        } else {
+            waitingList.getListOfUsers().add(currentGuest);
+            currentGuest.setWaitlist(waitingList);
+        }
+
+        waitingListRepository.save(waitingList);
+        restaurantRepository.save(currentRestaurant);
+
+        waitingList.setWaitTime(0);
+        for (Guest guest : waitingList.getListOfUsers()) {
+            waitingList.setWaitTime(waitingList.getWaitTime() + 5);
+        }
+
+        Iterable<WaitingList> waitingLists = waitingListRepository.findAll();
+        for (WaitingList list : waitingLists) {
+            lists.add(list);
+        }
+
+        return lists;
+
+    }
+
+    @RequestMapping(path = "/get_employee_waitlist.json", method = RequestMethod.GET)
+    public WaitingList getEmployeeList(HttpSession session, HttpSession httpSession) throws Exception {
+
+        currentRestaurant = (Restaurant) httpSession.getAttribute("restaurant");
+        waitingList = waitingListRepository.findOne(currentRestaurant.getId());
+
+        Employee employee = (Employee) session.getAttribute("employee");
+
+        if (employee == null) {
+            throw new Exception("User not signed in or registered");
+        }
+
+        return waitingList;
     }
 
 }
