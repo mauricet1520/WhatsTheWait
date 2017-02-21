@@ -9,7 +9,7 @@
     <li id="myList"
         class="list-group-item"
         ng-repeat="waititem in waitlist.listOfUsers">
-        {{$index + 1}} - {{waititem.firstName}} {{waititem.lastName}}
+        {{$index + 1}} - {{waititem.firstName}} {{waititem.lastName}}-waiting {{waititem.waiting}} minutes
         <span class="badge">Party of &nbsp;{{waititem.partyof}}</span>
 
     </li>

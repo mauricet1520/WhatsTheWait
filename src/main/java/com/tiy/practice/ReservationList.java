@@ -1,11 +1,17 @@
 package com.tiy.practice;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by crci1 on 2/8/2017.
@@ -13,11 +19,8 @@ import java.time.LocalDateTime;
 @Entity
 public class ReservationList {
     private Long restaurantId;
-    private String firstName;
-    private String lastName;
-    private int partySize;
-    private java.sql.Timestamp time;
     private Restaurant restaurant;
+    private List<Guest> listOfGuests;
 
     @Id
     @GeneratedValue(generator = "myGenerator")
@@ -30,8 +33,9 @@ public class ReservationList {
         this.restaurantId = restaurantId;
     }
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "restaurant_id")
+    @JsonBackReference
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -43,47 +47,23 @@ public class ReservationList {
     public ReservationList() {
     }
 
-    public ReservationList(String firstName, String lastName, int partySize, Timestamp time, Restaurant restaurant) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.partySize = partySize;
-        this.time = time;
-        this.restaurant = restaurant;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservationList")
+    @JsonManagedReference
+    public List<Guest> getListOfGuests() {
+        if (listOfGuests == null){
+            listOfGuests = new ArrayList<>();
+        }
+        return listOfGuests;
     }
 
-    @Column(name = "first_name")
-    public String getFirstName() {
-        return firstName;
+    public void setListOfGuests(List<Guest> listOfGuests) {
+        this.listOfGuests = listOfGuests;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
-    @Column(name = "last_name")
-    public String getLastName() {
-        return lastName;
-    }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
-    @Column(name = "party_size")
-    public int getPartySize() {
-        return partySize;
-    }
 
-    public void setPartySize(int partySize) {
-        this.partySize = partySize;
-    }
 
-    @Column(name = "time")
-    public java.sql.Timestamp getTime() {
-        return time;
-    }
 
-    public void setTime(java.sql.Timestamp time) {
-        this.time = time;
-    }
 }

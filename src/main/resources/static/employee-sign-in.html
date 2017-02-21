@@ -1,11 +1,17 @@
 <h4>Sign in</h4>
-<div>
+<div ng-if="!restaurantEmployee">
     <form action="/login" method="post">
 
-        <span><input type="button" ng-click="signInEmployee()"value="Register"/></span>
-        <span>Restaurant Password: <input type="text" ng-model="restaurantEmployee.password"/></span>
-        <span>First Name:<input type="text" ng-model="restaurantEmployee.firstName"/></span>
-        <span>Last Name:<input type="text" ng-model="restaurantEmployee.lastName"/></span>
+        <span>Restaurant Password: <input type="text" ng-model="employeePortal.password"/></span>
+        <span>First Name:<input type="text" ng-model="employeePortal.firstName"/></span>
+        <span>Last Name:<input type="text" ng-model="employeePortal.lastName"/></span>
+        <span><input type="button" ng-click="signInEmployee()"value="Sign in"/></span>
+
     </form>
 
 </div>
+
+<div ng-if="restaurantEmployee">
+    <h2>Welcome {{returnedGuest.email}} please check our restaurants</h2>
+</div>
+

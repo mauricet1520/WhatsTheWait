@@ -23,20 +23,45 @@
                 <a href="#restaurants">Restaurants</a>
             </li>
 
-            <li>
-                <a href="#reservations">Make a reservation</a>
+            <li >
+                <a href="#reservations" ng-click="getRestaurantsForReservations()">Make a reservation</a>
             </li>
 
         </ul>
 
+
         <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="#/register">Sign up</a>
+            <li ng-if="!returnedGuest&&!restaurantEmployee">
+                <a href="#/register">Register</a>
             </li>
 
-            <li>
+            <!--<li ng-if="!restaurantEmployee">-->
+                <!--<a href="#/register">Sign up</a>-->
+            <!--</li>-->
+
+
+            <li ng-if="!returnedGuest&&!restaurantEmployee">
                 <a href="#/">Sign In</a>
             </li>
+
+
+            <li ng-if="returnedGuest">
+                <a href="#/" ng-click="signOut()">Sign Out</a>
+            </li>
+
+            <li ng-if="restaurantEmployee">
+                <a href="#/" ng-click="signOut()">Sign Out</a>
+            </li>
+
+
+            <li ng-if="returnedGuest">
+                <a href="#/">{{returnedGuest.email}}</a>
+            </li>
+
+            <li ng-if="restaurantEmployee">
+                <a href="#/employee-sign-in">Employee {{restaurantEmployee.firstName}}</a>
+            </li>
+
             <li>
                 <a href="#/employee-register">Employee Portal</a>
             </li>

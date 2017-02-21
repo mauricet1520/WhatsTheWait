@@ -17,30 +17,30 @@ import java.util.*;
 public class WaitingList {
     private Long restaurantId;
     private Restaurant restaurant;
-    private Set<Guest> listOfUsers = new LinkedHashSet<>();
+    private List<Guest> listOfUsers = new ArrayList<>();
     private int waitTime;
 
 
     public WaitingList() {
     }
 
-    public WaitingList(Restaurant restaurant, Set<Guest> listOfUsers, int waitTime) {
+    public WaitingList(Restaurant restaurant, List<Guest> listOfUsers, int waitTime) {
         this.restaurant = restaurant;
         this.listOfUsers = listOfUsers;
         this.waitTime = waitTime;
 
     }
 
-    public WaitingList(Set<Guest> listOfUsers, int waitTime) {
+    public WaitingList(List<Guest> listOfUsers, int waitTime) {
         this.listOfUsers = listOfUsers;
         this.waitTime = waitTime;
     }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "waitlist")
     @JsonManagedReference
-    public Set<Guest> getListOfUsers() {
+    public List<Guest> getListOfUsers() {
         if (listOfUsers == null) {
-            listOfUsers = new LinkedHashSet<>();
+            listOfUsers = new ArrayList<>();
 
         }
         return listOfUsers;
@@ -68,7 +68,8 @@ public class WaitingList {
         this.restaurant = restaurant;
     }
 
-    public void setListOfUsers(Set<Guest> listOfUsers) {
+    public void setListOfUsers(List<Guest> listOfUsers) {
+
         this.listOfUsers = listOfUsers;
     }
 
@@ -80,5 +81,7 @@ public class WaitingList {
     public void setWaitTime(int waitTime) {
         this.waitTime = waitTime;
     }
+
+
 
 }

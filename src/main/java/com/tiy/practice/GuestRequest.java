@@ -1,5 +1,8 @@
 package com.tiy.practice;
 
+import java.util.Date;
+import java.sql.Time;
+
 /**
  * Created by crci1 on 2/9/2017.
  */
@@ -10,6 +13,10 @@ public class GuestRequest {
     private String email;
     private long location;
     private int partyof;
+    private Time reservationTime;
+    private Date reservationDate;
+    private String forDate;
+    private String forTime;
 
     public GuestRequest() {
     }
@@ -21,6 +28,30 @@ public class GuestRequest {
         this.email = email;
         this.location = location;
         this.partyof = partyof;
+    }
+
+    public GuestRequest(String firstName, String lastName, String password, String email, long location, int partyof, Time reservationTime, Date reservationDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.location = location;
+        this.partyof = partyof;
+        this.reservationTime = reservationTime;
+        this.reservationDate = reservationDate;
+    }
+
+    public GuestRequest(String firstName, String lastName, String password, String email, long location, int partyof, Time reservationTime, Date reservationDate, String forDate, String forTime) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.location = location;
+        this.partyof = partyof;
+        this.reservationTime = reservationTime;
+        this.reservationDate = reservationDate;
+        this.forDate = forDate;
+        this.forTime = forTime;
     }
 
     public String getFirstName() {
@@ -69,5 +100,37 @@ public class GuestRequest {
 
     public void setPartyof(int partyof) {
         this.partyof = partyof;
+    }
+
+    public Time getReservationTime() {
+        return reservationTime;
+    }
+
+    public void setReservationTime(Time reservationTime) {
+        this.reservationTime = reservationTime;
+    }
+
+    public Date getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(Date reservationDate) {
+        this.reservationDate = reservationDate;
+    }
+
+    public String getForDate() {
+        return forDate;
+    }
+
+    public void setForDate(String forDate) {
+        this.forDate = forDate;
+    }
+
+    public String getForTime() {
+        return forTime;
+    }
+
+    public void setForTime(String forTime) {
+        this.forTime = forTime;
     }
 }

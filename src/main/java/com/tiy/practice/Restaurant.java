@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Restaurant {
@@ -17,11 +15,22 @@ public class Restaurant {
     private String password;
     private String email;
     private WaitingList waitingList;
-
-    private Set<Employee> employees;
+    private ReservationList reservationList;
+    private List<Employee> employees;
 
     public Restaurant() {
 
+    }
+
+    public Restaurant(String name, String type, String address, String password, String email, WaitingList waitingList, ReservationList reservationList, List<Employee> employees) {
+        this.name = name;
+        this.type = type;
+        this.address = address;
+        this.password = password;
+        this.email = email;
+        this.waitingList = waitingList;
+        this.reservationList = reservationList;
+        this.employees = employees;
     }
 
     public Restaurant(String name, String type, String address, String password, String email) {
@@ -66,15 +75,27 @@ public class Restaurant {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
     @JsonManagedReference
-    public Set<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         if (employees == null) {
-            employees = new LinkedHashSet<>();
+            employees = new ArrayList<>();
         }
         return employees;
     }
 
-    public void setEmployees(Set<Employee> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    public ReservationList getReservationList() {
+        if (reservationList == null)
+            reservationList = new ReservationList();
+        return reservationList;
+    }
+
+    public void setReservationList(ReservationList reservationList) {
+        this.reservationList = reservationList;
     }
 
     @Column(name = "restaurant_name")
@@ -121,6 +142,8 @@ public class Restaurant {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 
 }
 

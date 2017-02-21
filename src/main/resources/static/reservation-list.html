@@ -1,0 +1,28 @@
+<h4>Reservations</h4>
+
+<div>
+<form action="/login" method="post">
+<select id="mySelect1" ng-model="guestReservation.forDate" ng-options="o as o for o in date_list"></select>
+<select id="mySelect2" ng-model="guestReservation.forTime" ng-options="o as o for o in time_list"></select>
+    <span>Party Size: <input type="text" ng-model="guestReservation.partyof"/></span>
+    <span> <button type="button" ng-click="addReservation()">Add</button></span>
+
+</form>
+</div>
+
+
+<div>
+
+
+    <ol class="list-group">
+        <li
+            class="list-group-item"
+            ng-repeat="container in reservationList.listOfGuests">
+            {{$index + 1}} - {{container.firstName}} {{container.lastName}}- Party of {{container.partyof}}
+            &nbsp;&nbsp;&nbsp;Date: {{container.reservationDate | date:'mediumDate'}}
+            &nbsp;&nbsp;-&nbsp;Time: {{container.reservationTime | date:'shortTime'}}
+            <!--<span class="badge">Party of &nbsp;{{waititem.partyof}}</span>-->
+        </li>
+    </ol>
+
+</div>
