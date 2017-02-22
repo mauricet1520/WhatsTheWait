@@ -22,6 +22,18 @@ public class Restaurant {
 
     }
 
+    public Restaurant(Long id, String name, String type, String address, String password, String email, WaitingList waitingList, ReservationList reservationList, List<Employee> employees) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.address = address;
+        this.password = password;
+        this.email = email;
+        this.waitingList = waitingList;
+        this.reservationList = reservationList;
+        this.employees = employees;
+    }
+
     public Restaurant(String name, String type, String address, String password, String email, WaitingList waitingList, ReservationList reservationList, List<Employee> employees) {
         this.name = name;
         this.type = type;

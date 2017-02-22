@@ -1,6 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
 body {
     margin: 1em;
     padding: 1em;
+font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 450;
+    font-size: 2em;
+    position: relative;
+
+}
+
+h1,h2,h3,h4,h5{
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 500;
+    font-size: 2em;
+
+}
+
+.navbar {
+border-radius: 5;
 }
 
 .restaurant-list {
@@ -23,4 +40,39 @@ body {
 
 .add-border {
     border: 1px solid black;
+}
+
+.grey-background {
+    background: #EEE;
+}
+
+
+.login-form {
+    width: 280px;
+    margin: auto;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid;
+}
+
+.login-form input {
+    width: 100%;
+    display: block;
+     margin: 10px 0;
+     padding: 10px;
+    border: 1px solid grey;
+}
+
+
+.login-form input.sign-in {
+    background: #c3d9ff; /* Old browsers */
+    background: -moz-linear-gradient(top,  #c3d9ff 0%, #c3d9ff 4%, #b1c8ef 41%, #98b0d9 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #c3d9ff 0%,#c3d9ff 4%,#b1c8ef 41%,#98b0d9 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #c3d9ff 0%,#c3d9ff 4%,#b1c8ef 41%,#98b0d9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    box-shadow: inset 0 0 10px white;
+}
+
+.login-form h4 {
+    text-align: center;
+    font-size: 24px;
 }

@@ -61,9 +61,8 @@ public class ReservationList {
     }
 
 
-
-
-
-
-
+    public ReservationList(Restaurant restaurant, List<Guest> listOfGuests) {
+        this.restaurant = restaurant;
+        this.listOfGuests = listOfGuests;
+    }
 }

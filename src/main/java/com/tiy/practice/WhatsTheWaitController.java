@@ -332,13 +332,16 @@ public class WhatsTheWaitController {
     }
 
     @RequestMapping(path = "/register_restaurant.json", method = RequestMethod.POST)
-    public Restaurant registerRestaurant(@RequestBody Restaurant restaurant) {
+    public Restaurant registerRestaurant(@RequestBody RestaurantRequest restaurant) {
 
         Restaurant registeredRestaurant = new Restaurant(restaurant.getName(), restaurant.getType(),
                 restaurant.getAddress(), restaurant.getPassword(), restaurant.getEmail());
         waitingList = new WaitingList(registeredRestaurant, null, 0);
-
         registeredRestaurant.setWaitingList(waitingList);
+
+        ReservationList reservationList = new ReservationList(registeredRestaurant, null);
+        registeredRestaurant.setReservationList(reservationList);
+
         restaurantRepository.save(registeredRestaurant);
         return registeredRestaurant;
     }
@@ -445,7 +448,6 @@ public class WhatsTheWaitController {
             currentRestaurant.setWaitingList(waitingList);
         } else {
             Collections.sort(waitingList.getListOfUsers());
-
             waitingList.getListOfUsers().add(currentGuest);
             currentGuest.setWaitlist(waitingList);
         }
@@ -529,7 +531,6 @@ public class WhatsTheWaitController {
             return guest;
 
     }
-
 
     @RequestMapping(path = "/update_guest.json", method = RequestMethod.POST)
     public Guest updateGuest(HttpSession session, HttpSession httpSession, @RequestBody GuestRequest guestRequest) {

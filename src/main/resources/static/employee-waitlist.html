@@ -16,7 +16,7 @@
             ng-click="editGuest(waititem.firstName)"
         class="list-group-item"
         ng-repeat="waititem in employeeWaitlist.listOfUsers">
-        {{$index + 1}} - {{waititem.firstName}} {{waititem.lastName}}
+        {{$index + 1}} - {{waititem.firstName}} {{waititem.lastName}} -&nbsp; waiting {{waititem.waiting}} minutes
         <span class="badge">Party of &nbsp;{{waititem.partyof}}</span>
         <!--<input type="button" ng-click="editGuest(waititem.firstName)" value="Edit"/>-->
 

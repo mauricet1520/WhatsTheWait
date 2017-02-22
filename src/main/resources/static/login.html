@@ -1,12 +1,11 @@
-<div><h4>Sign In **</h4></div>
+<div class="login-form grey-background"><h4>Sign In </h4>
 
 
 <form action="/login" method="post">
-        <span>Email: <input type="text" ng-model="currentGuest.email"/></span>
-        <span>Password: <input type="text" ng-model="currentGuest.password"/></span>
-        <span>Party Size: <input type="text" ng-model="currentGuest.partyof"/></span>
-        <span>  <input type="button" ng-click="login()" value="Sign in"/></span>
-
+        <input type="text" ng-model="currentGuest.email" placeholder="Email"/>
+        <input type="text" ng-model="currentGuest.password" placeholder="Password"/>
+        <input type="text" ng-model="currentGuest.partyof" placeholder="Party Of"/>
+        <input type="button" class="sign-in" ng-click="login()" value="Sign in"/>
 
 </form>
 </div>
