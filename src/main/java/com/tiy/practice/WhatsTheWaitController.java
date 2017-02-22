@@ -551,6 +551,7 @@ public class WhatsTheWaitController {
 
     }
 
+    //json endpoint that gets reservations
     @RequestMapping(path = "/get_restaurant_reservation.json", method = RequestMethod.GET)
     public List<Restaurant> getRestaurantReservation() throws Exception {
 
