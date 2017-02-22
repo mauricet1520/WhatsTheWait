@@ -1,10 +1,11 @@
-<div class="">
-<h4>Restaurants</h4>
+
+<h3>Restaurants</h3>
+
 <div class="restaurant-list">
 
 
     <!--Already a registered? <a href="#/">Sign in</a>-->
-    <h4>Current User: {{returnedGuest.firstName}}&nbsp; Party of {{returnedGuest.partyof}}  </h4>
+    <!--<h3>Current User: {{returnedGuest.firstName}}&nbsp; Party of {{returnedGuest.partyof}}  </h3>-->
 
     <!--<ul class="list-group">-->
 
@@ -15,21 +16,20 @@
     <!--</ul>-->
 
 
-    <ul class="list-group">
+    <div class="list-group restaurant-list">
         <button type="button" ng-click="getWaitList(restaurantItem.name)"
-            class="list-group-item"
+            class="list-group-item login-form"
             ng-repeat="restaurantItem in restaurantList" id="listOfButtons">
             {{restaurantItem.name}}  -&nbsp; {{restaurantItem.type}}
             -&nbsp; {{restaurantItem.address}}
-            <span class="badge" style="float:right;">{{restaurantItem.waitingList.waitTime}} minute wait </span>
+            <span class="badge" style="float:right font-size:2em">{{restaurantItem.waitingList.waitTime}} minute wait </span>
 
             <span style="float:right; margin-right: 30px; color:grey;"><i>{{restaurantItem.waitingList.listOfUsers.length}} Guests</i></span>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </button>
-    </ul>
+    </div>
 </div>
 </div>

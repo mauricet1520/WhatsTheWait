@@ -10,9 +10,12 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="css/test-styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
+
 <body ng-controller="testController">
+
     <div class="container">
 
         <nav class="navbar navbar-default" role="navigation">
@@ -25,9 +28,9 @@
                         <a href="#restaurants">Restaurants</a>
                     </li>
 
-                    <li>
-                        <a href="#reservations" ng-click="getRestaurantsForReservations()">Make a reservation</a>
-                    </li>
+                    <!--<li>-->
+                        <!--<a href="#reservations" ng-click="getRestaurantsForReservations()">Make a reservation</a>-->
+                    <!--</li>-->
 
                 </ul>
 
@@ -72,14 +75,16 @@
             </div>
         </nav>
 
-        <!--<div class="carousel slide" data-ride="carousel" id="featured">-->
+        <!--<div class="carousel slide" data-ride="carousel" id="featured" >-->
             <!--<div class="carousel inner">-->
-                <!--<div class="item active"><img src="images/restaurant-image.jpg"></div>-->
-                <!--<div class="item"><img src="images/tables1.jpg"></div>-->
-                <!--<div class="item"><img src="images/tables2.jpg"></div>-->
-                <!--<div class="item"><img src="images/tables3.jpg"></div>-->
+                <!--<div class="item active"><img src="images/carousel-restaurant-image.jpg"></div>-->
+                <!--<div class="item"><img src="images/carousel-tables1.jpg" ></div>-->
+                <!--<div class="item"><img src="images/carousel-tables2.jpg"></div>-->
+                <!--<div class="item"><img src="images/carousel-tables3.jpg"></div>-->
             <!--</div>-->
         <!--</div>-->
+
+
 
 <!--<h1>Restaurants</h1>-->
 <!--<div class="restaurant-list">-->
@@ -94,6 +99,7 @@
 
 
 <!--</div>-->
+
 
 <div ng-view></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

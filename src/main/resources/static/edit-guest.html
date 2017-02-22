@@ -1,11 +1,10 @@
-<div>
-
+<div class="login-form grey-background"><h4>Edit Guest </h4>
     <form action="/login" method="post">
-        <span>FirstName: <input type="text" ng-model="updatedGuest.firstName"/></span>
-        <span>LastName: <input type="text" ng-model="updatedGuest.lastName"/></span>
-        <span>Party Size: <input type="text" ng-model="updatedGuest.partyof"/></span>
-        <span>  <input type="button" ng-click="updateGuest()" value="Update"/></span>
-        <span>  <input type="button" ng-click="deleteGuest()" value="Delete"/></span>
+       <input type="text" ng-model="updatedGuest.firstName" placeholder="FirstName"/>
+        <input type="text" ng-model="updatedGuest.lastName" placeholder="LastName"/>
+        <input type="text" ng-model="updatedGuest.partyof" placeholder="Party of"/>
+        <input type="button" class="sign-in" ng-click="updateGuest()" value="Update"/>
+         <input type="button" class="sign-in" ng-click="deleteGuest()" value="Delete"/>
 
     </form>
 

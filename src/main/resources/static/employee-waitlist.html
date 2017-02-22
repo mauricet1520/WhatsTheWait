@@ -1,16 +1,15 @@
 
-<div>
-
+<div style="float:right" class="login-form grey-background"><h4>Add Guest</h4>
     <form action="/login" method="post">
-        <span>FirstName: <input type="text" ng-model="newGuest.firstName"/></span>
-        <span>LastName: <input type="text" ng-model="newGuest.lastName"/></span>
-        <span>Party Size: <input type="text" ng-model="newGuest.partyof"/></span>
-        <span>  <input type="button" ng-click="employeeAddGuest()" value="Add guest"/></span>
-        <span><input type="button" ng-click = "getEmployeeList()" value="Refresh"/></span>
+        <input type="text" ng-model="newGuest.firstName" placeholder="FirstName"/>
+        <input type="text" ng-model="newGuest.lastName" placeholder="LastName"/>
+        <input type="text" ng-model="newGuest.partyof" placeholder="Party Of"/>
+        <input type="button" class="sign-in" ng-click="employeeAddGuest()" value="Add guest"/>
+        <input type="button" class="sign-in" ng-click = "getEmployeeList()" value="Refresh"/>
     </form>
 </div>
 
-<div class="waitlist-list">
+<div class="waitlist-list" style="float:left">
 <ol class="list-group">
     <button type="button" id="myList"
             ng-click="editGuest(waititem.firstName)"

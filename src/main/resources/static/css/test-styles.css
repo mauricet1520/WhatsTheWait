@@ -1,33 +1,33 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
-body {
+@import url('https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz');body {
     margin: 1em;
     padding: 1em;
-font-family: 'Open Sans Condensed', sans-serif;
+font-family: 'Yanone Kaffeesatz', sans-serif;
     font-weight: 450;
     font-size: 2em;
     position: relative;
 
 }
 
+
 h1,h2,h3,h4,h5{
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-weight: 500;
+    font-weight: 300;
     font-size: 2em;
 
 }
 
 .navbar {
 border-radius: 5;
+text-align: center;
+    font-size: 24px;
 }
 
 .restaurant-list {
-    float: left;
-    width: 60%;
+    width: 80%;
 }
 
 .waitlist-list {
     float: left;
-    width: 48%;
+    width: 50%;
 }
 
 .reservation-list {
