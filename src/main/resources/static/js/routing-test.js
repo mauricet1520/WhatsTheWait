@@ -236,6 +236,7 @@ $scope.employee = {};
                        $rootScope.returnedGuest = null;
 
                       $scope.returnedNewRestaurant = response.data;
+                      alert("Your restaurant is add now add an employee");
 //                      $location.path("/restaurants");
                   },
                   function errorCallback(response) {
@@ -540,8 +541,6 @@ $scope.getRestaurants();
             });
 
         };
-
-
 
 
 });
