@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-public class Restaurant {
+public class Restaurant implements Comparable<Restaurant>{
     private Long id;
     private String name;
     private String type;
@@ -156,6 +156,10 @@ public class Restaurant {
     }
 
 
+    @Override
+    public int compareTo(Restaurant restaurant) {
 
+        return this.waitingList.getWaitTime() - restaurant.waitingList.getWaitTime();
+    }
 }
 

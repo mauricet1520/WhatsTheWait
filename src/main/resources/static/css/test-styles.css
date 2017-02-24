@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz');body {
+@import url('https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz');
+body {
+
     margin: 1em;
     padding: 1em;
-font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
     font-weight: 450;
     font-size: 2em;
     position: relative;
@@ -12,14 +14,8 @@ font-family: 'Yanone Kaffeesatz', sans-serif;
 h1,h2,h3,h4,h5{
     font-weight: 300;
     font-size: 2em;
-
 }
 
-.navbar {
-border-radius: 5;
-text-align: center;
-    font-size: 24px;
-}
 
 .restaurant-list {
     width: 80%;

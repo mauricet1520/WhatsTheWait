@@ -1,12 +1,14 @@
-<div>
-    <form action="/login" method="post">
+<div class="login-form grey-background" style="margin-top:2cm;">
+    <h4>Register</h4>
+<form action="/login" method="post">
 
-    <span>FirstName: <input type="text" ng-model="currentGuest.firstName"/></span>
-    <span>LastName: <input type="text" ng-model="currentGuest.lastName"/></span>
-    <span>Email: <input type="text" ng-model="currentGuest.email"/></span>
-    <span>Password: <input type="text" ng-model="currentGuest.password"/></span>
-    <span>Party Size: <input type="text" ng-model="currentGuest.partyof"/></span>
-    <span> <input type="button" ng-click="register()" value="Register"/></span>
+
+    <input type="text" placeholder="First Name" ng-model="currentGuest.firstName"/>
+    <input type="text" placeholder="Last Name" ng-model="currentGuest.lastName"/>
+    <input type="text" placeholder="Email" ng-model="currentGuest.email"/>
+    <input type="text" placeholder="Password" ng-model="currentGuest.password"/>
+    <input type="text" placeholder="Party of" ng-model="currentGuest.partyof"/>
+    <input type="button" class="sign-in" ng-click="register()" value="Register"/>
     </form>
 
 </div>

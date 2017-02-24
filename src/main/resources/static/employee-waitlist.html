@@ -8,8 +8,9 @@
         <input type="button" class="sign-in" ng-click = "getEmployeeList()" value="Refresh"/>
     </form>
 </div>
+<h4 style="margin-top: 1cm;">{{employeeWaitlist.waitTime}} minute wait.</h4>
 
-<div class="waitlist-list" style="float:left">
+<div class="waitlist-list" style="float:left margin-top:1cm">
 <ol class="list-group">
     <button type="button" id="myList"
             ng-click="editGuest(waititem.firstName)"

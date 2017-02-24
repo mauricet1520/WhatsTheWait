@@ -15,13 +15,14 @@
 </head>
 
 <body ng-controller="testController">
-
     <div class="container">
+        <header>
 
-        <nav class="navbar navbar-default" role="navigation">
+
+        <nav class="navbar navbar-default"  role="navigation">
             <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#/">What's The Wait</a>
+                <div class="navbar-header" style="">
+                    <a class="navbar-brand" style="font-size:1em" href="#/">What's The Wait</a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li ng-click="getRestaurants()">
@@ -97,16 +98,17 @@
 <!--</li>-->
 <!--</ul>-->
 
-
+</header>
 <!--</div>-->
 
 
 <div ng-view></div>
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
-    </div>
 </body>
 
 </html>

@@ -1,36 +1,37 @@
-<h4>Add New Employee</h4>
-<div>
+
+<div class="login-form grey-background" style="margin-top:2cm; float:right"
+>
+    <h4>Add New Employee</h4>
+
     <form action="/login" method="post">
 
-        <span>Restaurant Name: <input type="text" ng-model="employee.name"/></span>
-        <span>Restaurant Password: <input type="text" ng-model="employee.password"/></span>
-        <span>First Name:<input type="text" ng-model="employee.firstName"/></span>
-        <span>Last Name:<input type="text" ng-model="employee.lastName"/></span>
-        <span>Position:<input type="text" ng-model="employee.position"/></span>
-        <span><input type="button" ng-click="registerEmployee()" value="Register"/></span>
+        <input type="text" placeholder="Restaurant Name" ng-model="employee.name"/>
+        <input type="text" placeholder="Password" ng-model="employee.password"/>
+        <input type="text" placeholder="First Name" ng-model="employee.firstName"/>
+        <input type="text" placeholder="Last Name" ng-model="employee.lastName"/>
+        <input type="text" placeholder="Position" ng-model="employee.position"/>
+        <input type="button" class="sign-in" ng-click="registerEmployee()" value="Register"/>
     </form>
 
 </div>
-<div>
-    Already a registered? <a href="#/employee-sign-in">Sign in</a>
+
+
+
+<div class="login-form grey-background" style="margin-top:2cm; float:left;">
+    <h4>Add New Restaurant</h4>
+
+    <form action="/login" method="post">
+        <input type="text" placeholder="Name" ng-model="newRestaurant.name"/></span>
+        <input type="text" placeholder="Password" ng-model="newRestaurant.password"/></span>
+        <input type="text" placeholder="Type" ng-model="newRestaurant.type"/></span>
+        <input type="text" placeholder="Address" ng-model="newRestaurant.address"/></span>
+        <input type="text" placeholder="Email" ng-model="newRestaurant.email"/></span>
+        <span><input type="button" class="sign-in" ng-click="registerRestaurant()" value="Register Restaurant"/></span>
+    </form>
+    <div>
+        Already a registered? <a href="#/employee-sign-in">Sign in</a>
+    </div>
+
 </div>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<!--<h4>Add New Restaurant</h4>-->
-<!--<div>-->
-    <!--<form action="/login" method="post">-->
-        <!--<span>Restaurant Name: <input type="text" ng-model="newRestaurant.name"/></span>-->
-        <!--<span>Restaurant Password: <input type="text" ng-model="newRestaurant.password"/></span>-->
-        <!--<span>Type:<input type="text" ng-model="newRestaurant.type"/></span>-->
-        <!--<span>Address:<input type="text" ng-model="newRestaurant.address"/></span>-->
-        <!--<span>Email:<input type="text" ng-model="newRestaurant.email"/></span>-->
-        <!--<span><input type="button" ng-click="registerRestaurant()" value="Register Restaurant"/></span>-->
-    <!--</form>-->
-
-<!--</div>-->
 

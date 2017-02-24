@@ -102,7 +102,7 @@ public class WhatsTheWaitController {
         for (Restaurant currentRestaurant : allRestaurants) {
             waitingList = currentRestaurant.getWaitingList();
             waitingList.setWaitTime(0);
-            for (int i = 0; i <waitingList.getListOfUsers().size() ; i++) {
+            for (int i = 0; i < waitingList.getListOfUsers().size(); i++) {
                 Guest guest = waitingList.getListOfUsers().get(i);
                 LocalTime time1 = LocalTime.now();
                 Time timeNow = Time.valueOf(time1);
@@ -111,11 +111,14 @@ public class WhatsTheWaitController {
                 LocalTime parsedDate1 = LocalTime.parse(text1, formatter1);
                 guest.setTime_now(timeNow);
                 long diff = Math.abs(guest.getTime_now().getTime() - guest.getStart_time().getTime());
-                long res = diff/60000;
+                long res = diff / 60000;
                 guest.setWaiting((int) res);
                 waitingList.setWaitTime(waitingList.getWaitTime() + 5);
+                if (waitingList.getWaitTime() <= waitingList.getListOfUsers().get(0).getWaiting()) {
+                    waitingList.setWaitTime(waitingList.getListOfUsers().get(0).getWaiting());
 
-//                waitingList.setWaitTime(waitingList.getListOfUsers().get(0).getWaiting());
+                }
+
 
 //                guest.setWaiting(guest.getCurrently().compareTo(guest.getAdded()));
 //                guest.setWaiting(parsedDate1.getMinute() - guest.getStartTime());
@@ -125,8 +128,10 @@ public class WhatsTheWaitController {
 //            for (Guest guest : waitingList.getListOfUsers()) {
 //                waitingList.setWaitTime(waitingList.getWaitTime() + 5);
 //            }
+
             restaurantList.add(currentRestaurant);
         }
+        Collections.sort(restaurantList);
 
         return restaurantList;
     }
@@ -155,13 +160,13 @@ public class WhatsTheWaitController {
         currentGuest.setStart_time(timeNow);
 //        currentGuest.setWaiting(currentGuest.getCurrently().compareTo(currentGuest.getAdded()));
         long diff = Math.abs(currentGuest.getTime_now().getTime() - currentGuest.getStart_time().getTime());
-        long res = diff/60000;
+        long res = diff / 60000;
         currentGuest.setWaiting((int) res);
 
 //        currentGuest.setWaiting(currentGuest.getTimeStatus() - currentGuest.getStartTime());
 //        guestRepository.save(currentGuest);
 
-         waitingList = waitingListRepository.findOne(currentRestaurant.getId());
+        waitingList = waitingListRepository.findOne(currentRestaurant.getId());
 
         if (waitingList == null) {
             List<Guest> guests = new ArrayList<>();
@@ -186,7 +191,7 @@ public class WhatsTheWaitController {
         Collections.sort(waitingList.getListOfUsers());
 
 
-        for (int i = 0; i <waitingList.getListOfUsers().size() ; i++) {
+        for (int i = 0; i < waitingList.getListOfUsers().size(); i++) {
             Guest guest = waitingList.getListOfUsers().get(i);
             LocalTime time1 = LocalTime.now();
             DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("H m s");
@@ -195,27 +200,18 @@ public class WhatsTheWaitController {
             timeNow = Time.valueOf(time1);
 
             guest.setTime_now(timeNow);
-             diff = Math.abs(guest.getTime_now().getTime() - guest.getStart_time().getTime());
-             res = diff/60000;
+            diff = Math.abs(guest.getTime_now().getTime() - guest.getStart_time().getTime());
+            res = diff / 60000;
             guest.setWaiting((int) res);
             waitingList.setWaitTime(waitingList.getWaitTime() + 5);
+            if (waitingList.getWaitTime() <= waitingList.getListOfUsers().get(0).getWaiting()) {
+                waitingList.setWaitTime(waitingList.getListOfUsers().get(0).getWaiting());
 
-//            waitingList.setWaitTime(waitingList.getListOfUsers().get(0).getWaiting());
+            }
 
-//            guest.setWaiting(guest.getCurrently().compareTo(guest.getAdded()));
-//            guest.setWaiting(parsedDate1.getMinute() - guest.getStartTime());
             guestRepository.save(guest);
 
         }
-//        for (Guest guest : waitingList.getListOfUsers()) {
-//            waitingList.setWaitTime(waitingList.getWaitTime() + 5);
-//            LocalTime time1 = LocalTime.now();
-//            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("H m s");
-//            String text1 = time1.format(formatter1);
-//            LocalTime parsedDate1 = LocalTime.parse(text1, formatter1);
-//            guest.setWaiting(parsedDate1.getMinute() - guest.getStartTime());
-//
-//        }
 
         waitingListRepository.save(waitingList);
         restaurantRepository.save(currentRestaurant);
@@ -232,7 +228,7 @@ public class WhatsTheWaitController {
     public WaitingList getRestaurantWaitList(HttpSession session, String name) throws Exception {
 
         currentRestaurant = restaurantRepository.findByName(name);
-         waitingList = waitingListRepository.findOne(currentRestaurant.getId());
+        waitingList = waitingListRepository.findOne(currentRestaurant.getId());
         Guest myGuest = (Guest) session.getAttribute("guest");
 
         if (myGuest == null) {
@@ -255,7 +251,7 @@ public class WhatsTheWaitController {
 
         Collections.sort(waitingList.getListOfUsers());
 
-        for (int i = 0; i <waitingList.getListOfUsers().size() ; i++) {
+        for (int i = 0; i < waitingList.getListOfUsers().size(); i++) {
             Guest guest = waitingList.getListOfUsers().get(i);
             LocalTime time1 = LocalTime.now();
             DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("H m s");
@@ -265,13 +261,15 @@ public class WhatsTheWaitController {
 
             guest.setTime_now(timeNow);
             long diff = Math.abs(guest.getTime_now().getTime() - guest.getStart_time().getTime());
-            long res = diff/60000;
+            long res = diff / 60000;
             guest.setWaiting((int) res);
             waitingList.setWaitTime(waitingList.getWaitTime() + 5);
 
-//            waitingList.setWaitTime(waitingList.getListOfUsers().get(0).getWaiting());
-//            guest.setWaiting(guest.getCurrently().compareTo(guest.getAdded()));
-//            guest.setWaiting(parsedDate1.getMinute() - guest.getStartTime());
+            if (waitingList.getWaitTime() <= waitingList.getListOfUsers().get(0).getWaiting()) {
+                waitingList.setWaitTime(waitingList.getListOfUsers().get(0).getWaiting());
+
+            }
+
             guestRepository.save(guest);
 
         }
@@ -294,7 +292,7 @@ public class WhatsTheWaitController {
             lists.add(list);
 
 
-            for (int i = 0; i <waitingList.getListOfUsers().size() ; i++) {
+            for (int i = 0; i < waitingList.getListOfUsers().size(); i++) {
                 Guest guest = waitingList.getListOfUsers().get(i);
                 LocalTime time1 = LocalTime.now();
                 DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("H m s");
@@ -304,28 +302,18 @@ public class WhatsTheWaitController {
 
                 guest.setTime_now(timeNow);
                 long diff = Math.abs(guest.getTime_now().getTime() - guest.getStart_time().getTime());
-                long res = diff/60000;
+                long res = diff / 60000;
                 guest.setWaiting((int) res);
                 waitingList.setWaitTime(waitingList.getWaitTime() + 5);
+                if (waitingList.getWaitTime() <= waitingList.getListOfUsers().get(0).getWaiting()) {
+                    waitingList.setWaitTime(waitingList.getListOfUsers().get(0).getWaiting());
 
-//                waitingList.setWaitTime(waitingList.getListOfUsers().get(0).getWaiting());
+                }
 
-//                guest.setWaiting(guest.getCurrently().compareTo(guest.getAdded()));
-//                guest.setWaiting(parsedDate1.getMinute() - guest.getStartTime());
                 guestRepository.save(guest);
 
             }
 
-
-//            for (Guest guest : waitingList.getListOfUsers()) {
-//                waitingList.setWaitTime(waitingList.getWaitTime() + 5);
-//                LocalTime time1 = LocalTime.now();
-//                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("H m s");
-//                String text1 = time1.format(formatter1);
-//                LocalTime parsedDate1 = LocalTime.parse(text1, formatter1);
-//                guest.setWaiting(parsedDate1.getMinute() - guest.getStartTime());
-////                guestRepository.save(guest);
-//            }
         }
 
         return lists;
@@ -375,20 +363,16 @@ public class WhatsTheWaitController {
         Guest guest = (Guest) httpSession.getAttribute("employeeGuest");
         Employee employee = (Employee) session.getAttribute("employee");
         Restaurant currentRestaurant = employee.getRestaurant();
-         waitingList = waitingListRepository.findOne(currentRestaurant.getId());
+        waitingList = waitingListRepository.findOne(currentRestaurant.getId());
 
 
         waitingList.getListOfUsers().remove(guest);
-//        currentRestaurant.getWaitingList().getListOfUsers().remove(guest);
         guest.setWaitlist(null);
         Collections.sort(waitingList.getListOfUsers());
-
-
 
         waitingListRepository.save(waitingList);
         restaurantRepository.save(currentRestaurant);
         guestRepository.save(guest);
-
 
     }
 
@@ -425,13 +409,9 @@ public class WhatsTheWaitController {
         currentGuest.setTime_now(timeNow);
         currentGuest.setStart_time(timeNow);
         long diff = Math.abs(currentGuest.getTime_now().getTime() - currentGuest.getStart_time().getTime());
-        long res = diff/60000;
+        long res = diff / 60000;
         currentGuest.setWaiting((int) res);
-//        currentGuest.setWaiting(currentGuest.getCurrently().compareTo(currentGuest.getAdded()));
-
-//        currentGuest.setWaiting(currentGuest.getTimeStatus() - currentGuest.getStartTime());
         guestRepository.save(currentGuest);
-
 
 
         waitingList = waitingListRepository.findOne(currentRestaurant.getId());
@@ -460,7 +440,7 @@ public class WhatsTheWaitController {
         Collections.sort(waitingList.getListOfUsers());
 
 
-        for (int i = 0; i <waitingList.getListOfUsers().size() ; i++) {
+        for (int i = 0; i < waitingList.getListOfUsers().size(); i++) {
             Guest guest = waitingList.getListOfUsers().get(i);
             LocalTime time1 = LocalTime.now();
             DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("H m s");
@@ -472,21 +452,15 @@ public class WhatsTheWaitController {
             guest.setWaiting(guest.getTime_now().compareTo(guest.getStart_time()));
             waitingList.setWaitTime(waitingList.getWaitTime() + 5);
 
-//            waitingList.setWaitTime(waitingList.getListOfUsers().get(0).getWaiting());
+            if (waitingList.getWaitTime() <= waitingList.getListOfUsers().get(0).getWaiting()) {
+                waitingList.setWaitTime(waitingList.getListOfUsers().get(0).getWaiting());
 
-//            guest.setWaiting(parsedDate1.getMinute() - guest.getStartTime());
+            }
+
             guestRepository.save(guest);
 
         }
-//        for (Guest guest : waitingList.getListOfUsers()) {
-//            waitingList.setWaitTime(waitingList.getWaitTime() + 5);
-//            LocalTime time1 = LocalTime.now();
-//            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("H m s");
-//            String text1 = time1.format(formatter1);
-//            LocalTime parsedDate1 = LocalTime.parse(text1, formatter1);
-//            guest.setWaiting(parsedDate1.getMinute() - guest.getStartTime());
-//            guestRepository.save(guest);
-//        }
+
 
         Iterable<WaitingList> waitingLists = waitingListRepository.findAll();
         for (WaitingList list : waitingLists) {
@@ -501,7 +475,7 @@ public class WhatsTheWaitController {
     public WaitingList getEmployeeList(HttpSession session, HttpSession httpSession) throws Exception {
 
         currentRestaurant = (Restaurant) httpSession.getAttribute("restaurant");
-         waitingList = waitingListRepository.findOne(currentRestaurant.getId());
+        waitingList = waitingListRepository.findOne(currentRestaurant.getId());
 
         Employee employee = (Employee) session.getAttribute("employee");
 
@@ -514,21 +488,20 @@ public class WhatsTheWaitController {
 
     @RequestMapping(path = "/sign_out_guest.json", method = RequestMethod.POST)
     public void signOutGuest(HttpSession session) throws Exception {
-       if (session == session.getAttribute("guest")){
-           session = null;
-       }else if (session == session.getAttribute("employee")){
-           session = null;
-       }
+        if (session == session.getAttribute("guest")) {
+        } else if (session == session.getAttribute("employee")) {
+            session = null;
+        }
     }
 
     @RequestMapping(path = "/edit_guest.json", method = RequestMethod.GET)
-        public Guest editGuest(String name, HttpSession session, HttpSession httpSession) {
-            Employee employee = (Employee) session.getAttribute("employee");
-            currentRestaurant = employee.getRestaurant();
-             waitingList = waitingListRepository.findOne(currentRestaurant.getId());
-            Guest guest = guestRepository.findByFirstName(name);
-            httpSession.setAttribute("employeeGuest", guest);
-            return guest;
+    public Guest editGuest(String name, HttpSession session, HttpSession httpSession) {
+        Employee employee = (Employee) session.getAttribute("employee");
+        currentRestaurant = employee.getRestaurant();
+        waitingList = waitingListRepository.findOne(currentRestaurant.getId());
+        Guest guest = guestRepository.findByFirstName(name);
+        httpSession.setAttribute("employeeGuest", guest);
+        return guest;
 
     }
 
@@ -537,7 +510,7 @@ public class WhatsTheWaitController {
         Guest guest = (Guest) httpSession.getAttribute("employeeGuest");
         Employee employee = (Employee) session.getAttribute("employee");
         Restaurant currentRestaurant = employee.getRestaurant();
-         waitingList = waitingListRepository.findOne(currentRestaurant.getId());
+        waitingList = waitingListRepository.findOne(currentRestaurant.getId());
 
         guest.setPartyof(guestRequest.getPartyof());
         guest.setFirstName(guestRequest.getFirstName());
@@ -583,8 +556,8 @@ public class WhatsTheWaitController {
     }
 
     @RequestMapping(path = "/add_reservation.json", method = RequestMethod.POST)
-    public ReservationList addReservation( HttpSession restaurantSession, HttpSession session,
-                                           @RequestBody GuestRequest guest) throws Exception {
+    public ReservationList addReservation(HttpSession restaurantSession, HttpSession session,
+                                          @RequestBody GuestRequest guest) throws Exception {
 
         currentRestaurant = (Restaurant) restaurantSession.getAttribute("restaurant");
         Guest myGuest = (Guest) session.getAttribute("guest");

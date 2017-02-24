@@ -176,8 +176,8 @@ public class Guest implements Comparable<Guest> {
 
     @Override
     public int compareTo(Guest guest) {
+        return guest.waiting - this.waiting;
 
-        return (int) (this.id - guest.id);
     }
 
     public java.util.Date getReservationDate() {
